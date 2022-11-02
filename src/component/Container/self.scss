@@ -1,0 +1,12 @@
+.container-container {
+  display: block;
+  border: 2px solid black;
+  border-radius: 0.5em;
+  margin: 10px;
+  width: 50%;
+  height: 50px;
+  p {
+    font-weight: bold;
+    text-align: center;
+  }
+}
