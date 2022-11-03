@@ -1,22 +1,24 @@
 import './self.scss';
-import React, {useRef, useState} from "react";
+import React, { useRef } from "react";
 
-import { Logger } from "../../module/logger";
-
-const logger = Logger({className: "Container"});
+// import { Logger } from "../../module/logger";
+// const logger = Logger({className: "Container"});
 
 const Container = () => {
 
     const containerRef = useRef(null);
 
-    const handleMouseDown = () => {
+    const handleDragStart = (e) => {
+        e.dataTransfer.setData("text", e.target.id);
+        e.effectAllowed = "copyMove";
     };
 
-    const handleMouseUp = () => {
-    }
+    const handleDragEnd = (e) => {
+        e.dataTransfer.clearData();
+    };
 
     return(
-        <div ref={containerRef} className="container-container" onMouseDown={handleMouseDown} onMouseUp={handleMouseUp}>
+        <div id="container" ref={containerRef} draggable="true" className="container-container" onDragStart={handleDragStart} onDragEnd={handleDragEnd}>
             <p>Container</p>
         </div>
     );

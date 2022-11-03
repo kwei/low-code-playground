@@ -1,0 +1,29 @@
+.context-menu {
+  position: absolute;
+  display: none;
+  z-index: 9999;
+  width: 150px;
+  height: auto;
+  padding: 2px;
+  border-radius: 0.5em;
+  border: 1px solid black;
+  background-color: white;
+  transform: scale(0);
+  transform-origin: top left;
+  &.show {
+    display: block;
+    transform: scale(1);
+    transition: transform 200s ease-in-out;
+  }
+
+  .item {
+    padding: 8px 10px;
+    font-size: 15px;
+    cursor: pointer;
+    color: black;
+    border-radius: inherit;
+    &:hover {
+      background-color: #efefef;
+    }
+  }
+}

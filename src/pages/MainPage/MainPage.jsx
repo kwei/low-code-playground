@@ -1,11 +1,11 @@
 import '../../css/main.scss';
 import React from "react";
 
-import { Logger } from "../../module/logger";
 import ToolBar from "../../component/ToolBar/ToolBar.jsx";
 import Canvas from "../../component/Canvas/Canvas.jsx";
-
-const logger = Logger({className: "MainPage"});
+import ContextMenu from "../../component/ContextMenu/ContextMenu.jsx";
+// import { Logger } from "../../module/logger";
+// const logger = Logger({className: "MainPage"});
 
 const MainPage = () => {
 
@@ -13,6 +13,7 @@ const MainPage = () => {
         <div className="container-main">
             <Canvas/>
             <ToolBar/>
+            <ContextMenu/>
         </div>
     );
 };
