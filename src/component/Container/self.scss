@@ -1,9 +1,10 @@
 .container-container {
   display: block;
+  position: relative;
   border: 2px solid black;
   border-radius: 0.5em;
   margin: 10px;
-  padding: 2px 5px;
+  padding: 2px 10px;
   width: auto;
   height: 50px;
   box-shadow: rgba(0, 0, 0, 0.3) 0 2px 8px;
@@ -16,10 +17,20 @@
     background-color: rgba(210, 251, 255, 0.3);
     box-shadow: rgba(0, 0, 0, 0.4) 0 2px 3px;
   }
+
+  .resizer {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 0.3em;
+    height: 0.3em;
+    cursor: nwse-resize;
+  }
 }
 
 .container-container-copied {
   display: block;
+  position: relative;
   border: 2px solid black;
   border-radius: 0.5em;
   padding: 5px;

@@ -9,4 +9,24 @@
   background-color: rgba(255, 255, 255, 0.7);
   box-shadow: rgb(204, 219, 232) 3px 3px 6px 0 inset, rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset;
   overflow: auto;
+
+  .default-container {
+    min-width: calc(100% - 60px);
+    min-height: calc(100% - 60px);
+    height: fit-content;
+    width: fit-content;
+    margin: auto;
+    padding: 30px;
+    overflow: auto;
+  }
+
+  .resizer {
+    display: none;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 0.3em;
+    height: 0.3em;
+    cursor: nwse-resize;
+  }
 }
