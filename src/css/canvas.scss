@@ -19,14 +19,4 @@
     padding: 30px;
     overflow: auto;
   }
-
-  .resizer {
-    display: none;
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    width: 0.3em;
-    height: 0.3em;
-    cursor: nwse-resize;
-  }
 }

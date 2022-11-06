@@ -19,7 +19,7 @@ const Container = () => {
 
     return(
         <div id="container" ref={containerRef} draggable="true" className="container-container" onDragStart={handleDragStart} onDragEnd={handleDragEnd}>
-            <p>Container</p>
+            {"Container"}
         </div>
     );
 };

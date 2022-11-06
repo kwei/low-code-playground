@@ -1,10 +1,13 @@
 import '../../css/canvas.scss';
-import React, {useRef} from "react";
+import React, {useCallback, useEffect, useRef, useState} from "react";
+import Resizer from "../Resizer/Resizer.jsx";
 
 // import { Logger } from "../../module/logger";
 // const logger = Logger({className: "Canvas"});
 
 const Canvas = () => {
+    const [position, setPosition] = useState({x: 0, y: 0});
+    const [currentTarget, setCurrentTarget] = useState("default-container");
 
     const elementStructure = useRef({
         "container-canvas": []
@@ -26,14 +29,12 @@ const Canvas = () => {
             if (!elementStructure.current[e.target.id]) elementStructure.current[e.target.id] = [];
             newNode.id = e.target.id + "." + id + "-" + (elementStructure.current[e.target.id].length+1);
             newNode.className = "container-container-copied";
-            newNode.innerHTML = "container";
             newNode.style.height = "auto";
             newNode.draggable = false;
             newNode.onDrop = handleDrop;
             newNode.onDragOver = handleDragOver;
             resizer.style.display = "block";
-            resizer.onMouseDown = handleResizeStart;
-            resizer.onMouseUp = handleResizeEnd;
+            resizer.addEventListener("mousedown", handleResizeStart);
             newNode.appendChild(resizer);
             newNode.addEventListener("contextmenu", (e) => {
                 e.preventDefault();
@@ -44,7 +45,6 @@ const Canvas = () => {
             });
             e.target.appendChild(newNode);
             elementStructure.current[e.target.id].push(newNode.id);
-            console.log(JSON.parse(JSON.stringify(elementStructure.current)));
         }
     };
 
@@ -53,22 +53,24 @@ const Canvas = () => {
         e.preventDefault();
     };
 
-    const resize = (e, ev = null) => {
-        const dx = ev.x - e.x;
-        const dy = ev.y - e.y;
-        console.log(dx, dy);
-        const parentNode = document.getElementById(ev.target.parentNode.id);
+    const resize = useCallback((e) => {
+        const dx = position.x - e.x;
+        const dy = position.y - e.y;
+        const parentNode = document.getElementById(currentTarget);
+        console.log(currentTarget)
         const currentH = parentNode.clientHeight;
         const currentW = parentNode.clientWidth;
-        console.log(currentH, currentW);
-        parentNode.style.width = currentW + dx + "px";
-        parentNode.style.height = currentH + dy + "px";
-    };
+        parentNode.style.width = currentW + dx + " px";
+        parentNode.style.height = currentH + dy + " px";
+        setPosition({x: currentW+dx, y: currentH+dy});
+    }, [currentTarget]);
 
     const handleResizeStart = (ev) => {
-        console.log("Start resize");
+        setCurrentTarget(ev.target.parentNode.id);
+        setPosition({x: ev.x, y: ev.y});
         ev.preventDefault();
-        document.addEventListener("mousemove", (e) => resize(e, ev), false);
+        document.addEventListener("mousemove", resize, false);
+        document.addEventListener("mouseup", handleResizeEnd, false);
     };
 
     const handleResizeEnd = (ev) => {
@@ -80,7 +82,7 @@ const Canvas = () => {
     return(
         <div id={"container-canvas"} className="container-canvas" onDrop={handleDrop} onDragOver={handleDragOver}>
             <div id={"default-container"} className={"default-container"}></div>
-            <div id={"resizer"} className={"resizer"} onMouseDown={handleResizeStart} onMouseUp={handleResizeEnd}></div>
+            <Resizer/>
         </div>
     );
 };
